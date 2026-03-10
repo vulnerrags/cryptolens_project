@@ -1,0 +1,53 @@
+{
+  "type": "record",
+  "name": "Trade",
+  "namespace": "crypto",
+  "doc": "Aggregated trade event from Binance aggTrade WebSocket stream",
+  "fields": [
+    {
+      "name": "symbol",
+      "type": "string",
+      "doc": "Trading pair, e.g. BTCUSDT"
+    },
+    {
+      "name": "agg_trade_id",
+      "type": "long",
+      "doc": "Aggregate trade ID"
+    },
+    {
+      "name": "price",
+      "type": "string",
+      "doc": "Trade price as decimal string"
+    },
+    {
+      "name": "quantity",
+      "type": "string",
+      "doc": "Trade quantity as decimal string"
+    },
+    {
+      "name": "first_trade_id",
+      "type": "long",
+      "doc": "First individual trade ID included in this aggregate"
+    },
+    {
+      "name": "last_trade_id",
+      "type": "long",
+      "doc": "Last individual trade ID included in this aggregate"
+    },
+    {
+      "name": "trade_time",
+      "type": "long",
+      "doc": "Trade execution timestamp in milliseconds epoch"
+    },
+    {
+      "name": "is_buyer_maker",
+      "type": "boolean",
+      "doc": "True if the buyer is the market maker"
+    },
+    {
+      "name": "ingestion_time",
+      "type": "long",
+      "doc": "Producer ingestion timestamp in milliseconds epoch"
+    }
+  ]
+}
