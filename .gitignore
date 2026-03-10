@@ -54,3 +54,4 @@ logs/
 
 # Kafka data (bind mount)
 docker/kafka-data/
+docker/minio-data/

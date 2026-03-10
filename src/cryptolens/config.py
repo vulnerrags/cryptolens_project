@@ -22,6 +22,16 @@ class Settings(BaseSettings):
     kafka_topic_trades: str = "crypto.trades"
     log_level: str = "INFO"
 
+    # MinIO / S3-compatible storage
+    minio_endpoint: str = "http://localhost:9000"
+    minio_access_key: str = "minioadmin"
+    minio_secret_key: str = "minioadmin"
+    minio_bucket: str = "cryptolens"
+
+    # Spark consumer
+    spark_trigger_seconds: int = 30
+    spark_checkpoint_dir: str = "s3a://cryptolens/checkpoints/trades"
+
     @property
     def binance_ws_url(self) -> str:
         """Build the Binance combined WebSocket stream URL from configured symbols."""

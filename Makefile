@@ -1,4 +1,4 @@
-.PHONY: up down run lint format test logs
+.PHONY: up down run lint format test logs run-spark logs-spark test-spark minio-ui
 
 COMPOSE := docker compose -f docker/docker-compose.yml
 
@@ -22,3 +22,16 @@ test:
 
 logs:
 	$(COMPOSE) logs -f kafka
+
+run-spark:
+	$(COMPOSE) up -d spark-consumer
+
+logs-spark:
+	$(COMPOSE) logs -f spark-consumer
+
+test-spark:
+	uv run pytest tests/test_spark_consumer.py -v
+
+minio-ui:
+	@echo "MinIO Console: http://localhost:9001  (user: minioadmin / pass: minioadmin)"
+	open http://localhost:9001
