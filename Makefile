@@ -1,4 +1,4 @@
-.PHONY: up down run lint format test logs run-spark logs-spark test-spark minio-ui
+.PHONY: up down run lint format test logs run-spark logs-spark test-spark minio-ui ch-client logs-ch
 
 COMPOSE := docker compose -f docker/docker-compose.yml
 
@@ -35,3 +35,9 @@ test-spark:
 minio-ui:
 	@echo "MinIO Console: http://localhost:9001  (user: minioadmin / pass: minioadmin)"
 	open http://localhost:9001
+
+ch-client:
+	docker exec -it cryptolens-clickhouse clickhouse-client --user default --password default --database cryptolens
+
+logs-ch:
+	$(COMPOSE) logs -f clickhouse

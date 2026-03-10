@@ -32,6 +32,14 @@ class Settings(BaseSettings):
     spark_trigger_seconds: int = 30
     spark_checkpoint_dir: str = "s3a://cryptolens/checkpoints/trades"
 
+    # ClickHouse
+    clickhouse_host: str = "localhost"
+    clickhouse_http_port: int = 8123
+    clickhouse_native_port: int = 9004
+    clickhouse_database: str = "cryptolens"
+    clickhouse_user: str = "default"
+    clickhouse_password: str = "default"
+
     @property
     def binance_ws_url(self) -> str:
         """Build the Binance combined WebSocket stream URL from configured symbols."""

@@ -103,6 +103,29 @@ services:
       "
     restart: "no"
 
+  clickhouse:
+    image: clickhouse/clickhouse-server:25.3
+    container_name: cryptolens-clickhouse
+    ports:
+      - "8123:8123"   # HTTP interface
+      - "9004:9000"   # Native TCP (host 9004 → container 9000, avoids MinIO port conflict)
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: default
+    volumes:
+      - ./clickhouse-data:/var/lib/clickhouse
+      - ./clickhouse/config.d:/etc/clickhouse-server/config.d:ro
+      - ./clickhouse/initdb.d:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8123/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
   spark-consumer:
     build:
       context: ..
